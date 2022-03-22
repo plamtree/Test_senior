@@ -273,7 +273,7 @@ if __name__ == '__main__':
                         metavar="/path/to/custom/dataset/",
                         help='Directory of the custom dataset')
     parser.add_argument('--weights', required=True,
-                        metavar="/path/to/weights.h5",
+                        metavar="/path/to/mask_rcnn_coco.h5",
                         help="Path to weights .h5 file or 'coco'")
     parser.add_argument('--logs', required=False,
                         default=DEFAULT_LOGS_DIR,
