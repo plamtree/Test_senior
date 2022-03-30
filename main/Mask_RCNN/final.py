@@ -61,7 +61,7 @@ class CustomConfig(Config):
     IMAGES_PER_GPU = 2
 
     # Number of classes (including background)
-    NUM_CLASSES = 1 + 4  # Background + toy
+    NUM_CLASSES = 1 + 2  # Background + solar(glass) + wind(trash) 
 
     # Number of training steps per epoch
     STEPS_PER_EPOCH = 100
@@ -82,10 +82,9 @@ class CustomDataset(utils.Dataset):
         subset: Subset to load: train or val
         """
         # Add classes. We have only one class to add.
-        self.add_class("object", 1, "bottle")
-        self.add_class("object", 2, "glass")
-        self.add_class("object", 3, "paper")
-        self.add_class("object", 4, "trash")
+        self.add_class("object", 1, "glass")
+        self.add_class("object", 2, "trash")
+
 
         # Train or validation dataset?
         assert subset in ["train", "val"]
@@ -123,7 +122,7 @@ class CustomDataset(utils.Dataset):
             polygons = [r['shape_attributes'] for r in a['regions']] 
             objects = [s['region_attributes']['name'] for s in a['regions']]
             print("objects:",objects)
-            name_dict = {"bottle": 1,"glass": 2,"paper": 3,"trash": 4}
+            name_dict = {"glass": 1,"trash": 2}
             # key = tuple(name_dict)
             num_ids = [name_dict[a] for a in objects]
      
@@ -204,8 +203,8 @@ def train(model):
     print("Training network heads")
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
-                epochs=10,
-                layers='heads')
+                epochs=500,
+                layers='all')
 
 
 def color_splash(image, mask):
@@ -295,7 +294,7 @@ if __name__ == '__main__':
                         metavar="/path/to/custom/dataset/",
                         help='Directory of the custom dataset')
     parser.add_argument('--weights', required=True,
-                        metavar="/path/to/weights.h5",
+                        metavar="/path/to/mask_rcnn_coco.h5",
                         help="Path to weights .h5 file or 'coco'")
     parser.add_argument('--logs', required=False,
                         default=DEFAULT_LOGS_DIR,
