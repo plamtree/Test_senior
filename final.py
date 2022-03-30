@@ -182,8 +182,8 @@ def train(model):
     print("Training network heads")
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
-                epochs=5000,
-                layers='heads')
+                epochs=50,
+                layers='all')
 
 
 def color_splash(image, mask):
@@ -272,7 +272,7 @@ if __name__ == '__main__':
     parser.add_argument('--dataset', required=False,
                         metavar="/path/to/custom/dataset/",
                         help='Directory of the custom dataset')
-    parser.add_argument('--weights', required=False,
+    parser.add_argument('--weights', required=True,
                         metavar="/path/to/mask_rcnn_coco.h5",
                         help="Path to weights .h5 file or 'coco'")
     parser.add_argument('--logs', required=False,
