@@ -43,10 +43,10 @@ class CustomConfig(Config):
     NUM_CLASSES = 1 + 2  # Background + solar(glass) + wind(trash) 
 
     # Number of training steps per epoch
-    STEPS_PER_EPOCH = 100
+    STEPS_PER_EPOCH = 300
 
     # Skip detections with < 90% confidence
-    DETECTION_MIN_CONFIDENCE = 0.9
+    DETECTION_MIN_CONFIDENCE = 0.6
 
 
 ############################################################
