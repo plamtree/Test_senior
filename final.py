@@ -46,7 +46,7 @@ class CustomConfig(Config):
     STEPS_PER_EPOCH = 10
 
     # Skip detections with < 90% confidence
-    DETECTION_MIN_CONFIDENCE = 0.9
+    DETECTION_MIN_CONFIDENCE = 0.5
 
 
 ############################################################
@@ -273,7 +273,7 @@ if __name__ == '__main__':
                         metavar="/path/to/custom/dataset/",
                         help='Directory of the custom dataset')
     parser.add_argument('--weights', required=True,
-                        metavar="/path/to/mask_rcnn_coco.h5",
+                        metavar="/path/to/weights.h5",
                         help="Path to weights .h5 file or 'coco'")
     parser.add_argument('--logs', required=False,
                         default=DEFAULT_LOGS_DIR,
